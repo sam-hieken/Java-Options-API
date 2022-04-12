@@ -10,6 +10,11 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface StonkConnect {	
+	/** The API keys to use for making HTTP requests to Tradier */
+	//	These API keys are obviously placeholders and will not work;
+	//	If I need to demonstrate this I can easily plug in my own keys
+	String[] DEFAULT_KEYS = {"key1", "key2", "key3"};
+	
 	@GET("v8/finance/chart/{ticker}?region=US&lang=en-US&includePrePost=false&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance")
 	Call<JsonObject> GET(@Path("ticker") String ticker);
 	

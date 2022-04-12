@@ -12,7 +12,7 @@ import retrofit2.Response;
 
 public class Option extends Security {
 	private static final Gson gson = new Gson();
-	private static final Connector conn = new Connector(Security.DEFAULT_KEYS);
+	private static final Connector conn = new Connector(StonkConnect.DEFAULT_KEYS);
 	
 	private JsonElement greeks;
 	
@@ -144,14 +144,14 @@ public class Option extends Security {
 	 * @throws IOException
 	 */
 	public static double[] getStrikes(String symbol, Date expiration, Connector conn) throws IOException {		
-		JsonArray boobs = conn.conn.getStrikes(conn.nextHeader(), symbol, expiration.toString())
+		JsonArray data = conn.conn.getStrikes(conn.nextHeader(), symbol, expiration.toString())
 							.execute().body().getAsJsonObject().get("strikes").getAsJsonObject()
 							.get("strike").getAsJsonArray();
 		
-		double[] strikes = new double[boobs.size()];
+		double[] strikes = new double[data.size()];
 		
 		for(int i = 0; i != strikes.length; i++) {
-			strikes[i] = boobs.get(i).getAsDouble();
+			strikes[i] = data.get(i).getAsDouble();
 		}
 
 		conn.ok.connectionPool().evictAll();
@@ -177,10 +177,10 @@ public class Option extends Security {
 	 * @throws IOException
 	 */
 	public static Date[] getExpirations(String symbol, Connector conn) throws IOException {		
-		JsonElement tits = null;
+		JsonElement data = null;
 		
 		try {
-			tits = conn.conn.getExprs(conn.nextHeader(), symbol)
+			data = conn.conn.getExprs(conn.nextHeader(), symbol)
 			  .execute().body().getAsJsonObject().get("expirations").getAsJsonObject()
 			  .get("date").getAsJsonArray();
 		}
@@ -202,13 +202,13 @@ public class Option extends Security {
 			}
 		}
 		
-		JsonArray boobs = tits.getAsJsonArray();
+		JsonArray options = data.getAsJsonArray();
 		
-		Date[] strikes = new Date[boobs.size()];
+		Date[] strikes = new Date[options.size()];
 		
 		for(int i = 0; i != strikes.length; i++) {
 			try {
-				strikes[i] = Date.toDate(boobs.get(i).getAsString());
+				strikes[i] = Date.toDate(options.get(i).getAsString());
 			} 
 			catch (ParseException e) {
 				e.printStackTrace();

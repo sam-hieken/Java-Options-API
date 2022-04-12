@@ -1,9 +1,7 @@
 package stonks;
 
 public abstract class Security {
-	//	TODO Add your token(s) here
-	public static final String[] DEFAULT_KEYS = {};
-	//	TODO Add your token(s) here
+	
 			
 	protected String symbol;
 	protected String description;

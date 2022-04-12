@@ -12,6 +12,24 @@ public class Date {
 	private byte month;
 	private byte day;
 	
+	/**
+	 * Convenience; recommended to use <br>{@code import static stonks.Date.date}<br>
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @return
+	 * @throws ParseException 
+	 */
+	public static Date date(int year, int month, int day) throws ParseException {
+		return new Date(year, month, day);
+	}
+	
+	/**
+	 * Convert yyyy-MM-dd formatted string into date
+	 * @param str
+	 * @return
+	 * @throws ParseException
+	 */
 	public static Date toDate(String str) throws ParseException {
 		String[] date = str.split("\\-");
 		
